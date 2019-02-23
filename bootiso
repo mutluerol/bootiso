@@ -59,7 +59,7 @@ typeset -Ar userFlagsCompatibilityMatrix=(
 )
 
 # internal variables
-typeset syslinuxLibRoot=${SYSLINUX_LIB_ROOT:-'/usr/lib/syslinux'}
+typeset syslinuxLibRoot=${SYSLINUX_LIB_ROOT:-'/usr/share/syslinux'}
 typeset ticketsurl="https://github.com/jsamr/bootiso/issues"
 typeset mountRoot=/mnt
 typeset tempRoot=/var/tmp/bootiso
@@ -215,7 +215,7 @@ OPTION FLAGS
 
 ENVIRONMENT VARIABLES
 
-- SYSLINUX_LIB_ROOT : set the root of syslinux assets, defaults to /usr/lib/syslinux
+- SYSLINUX_LIB_ROOT : set the root of syslinux assets, defaults to /usr/share/syslinux
 
 INFO
 
@@ -1596,8 +1596,8 @@ checkSyslinuxInstall() {
 		failAndExit "Your distribution doesn't ship 'extlinux' with the 'syslinux' package." \
 			"Please install 'extlinux' and try again."
 	fi
-	foundSyslinuxBiosFolder=$(find "$syslinuxLibRoot" -type d -path '*/bios' -print -quit)
-	foundSyslinuxMbrBinary=$(findFileFromPatterns "$syslinuxLibRoot" 'bios/mbr.bin' 'mbr.bin')
+	foundSyslinuxBiosFolder=$(find "$syslinuxLibRoot" -type d -path '*' -print -quit)
+	foundSyslinuxMbrBinary=$(findFileFromPatterns "$syslinuxLibRoot" 'mbr.bin' 'mbr.bin')
 	if [ -z "$foundSyslinuxBiosFolder" ]; then
 		failAndExit "Could not find a SYSLINUX bios folder containing c32 bios module files on this system."
 	fi
